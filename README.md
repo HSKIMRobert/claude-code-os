@@ -1,6 +1,6 @@
 # Claude Code OS (CCO) — LiveUSB
 
-![Claude Code OS](branding/cco-wallpaper.png)
+![Claude Code OS](branding/cco-cover.png)
 
 "Claude Code 가 OS 자체" 인 부팅 가능한 LiveUSB ISO 입니다.
 
@@ -40,11 +40,29 @@ AI 가 인터페이스 그 자체인데, 왜 그 앞에 OS 와 설치 과정을 
 
 ### 사용법
 
-#### 1. ISO 빌드
-사전에 빌드된 ISO 가 [Releases](https://github.com/Hostingglobal-Tech/claude-code-os/releases) 에 없을 경우 (ISO 가 GitHub release 2 GB 한도 초과로 직접 호스팅 안 함) 직접 빌드:
+#### 1. ISO 다운로드 (권장)
+[Releases](https://github.com/Hostingglobal-Tech/claude-code-os/releases) 에서 v2.0.3 의 세 파일 다운로드:
+- `cco-mint-v2.0.3.iso.part1` (1.99 GB)
+- `cco-mint-v2.0.3.iso.part2` (1.42 GB)
+- `cco-mint-v2.0.3.iso.sha256`
+
+ISO 가 GitHub Release 단일 한도 (2 GB) 초과로 두 part 로 분할되어 있습니다. 합치기:
+
+Linux / WSL / macOS:
+```bash
+cat cco-mint-v2.0.3.iso.part1 cco-mint-v2.0.3.iso.part2 > cco-mint-v2.0.3.iso
+sha256sum -c cco-mint-v2.0.3.iso.sha256
+```
+
+Windows (cmd):
+```cmd
+copy /b cco-mint-v2.0.3.iso.part1+cco-mint-v2.0.3.iso.part2 cco-mint-v2.0.3.iso
+```
+
+#### 1-1. (선택) 직접 빌드
+릴리즈 ISO 대신 직접 빌드하려면:
 
 ```bash
-# 작업 디렉토리에 ISO + branding 준비
 mkdir -p ~/cco-build/branding && cd ~/cco-build
 # Linux Mint 21.3 XFCE 64bit ISO 다운로드 (https://www.linuxmint.com/edition.php?id=302)
 git clone https://github.com/Hostingglobal-Tech/claude-code-os repo

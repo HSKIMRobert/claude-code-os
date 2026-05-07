@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;500;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 1920px;
+    height: 800px;
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+    background:
+      radial-gradient(1600px 1100px at 30% 30%, #1B2C4F 0%, #0E1A30 45%, #050913 88%),
+      #050913;
+    color: #FFFFFF;
+    position: relative;
+  }
+
+  /* subtle grid */
+  body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(86,180,233,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(86,180,233,0.04) 1px, transparent 1px);
+    background-size: 100px 100px;
+    pointer-events: none;
+  }
+
+  /* glow blobs */
+  .glow1 {
+    position: absolute;
+    width: 800px; height: 800px;
+    left: -200px; top: -300px;
+    background: radial-gradient(circle, rgba(255,176,0,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .glow2 {
+    position: absolute;
+    width: 900px; height: 900px;
+    right: -250px; bottom: -300px;
+    background: radial-gradient(circle, rgba(86,180,233,0.10) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* center column */
+  .center {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 3;
+  }
+
+  /* CCO huge title */
+  .title {
+    font-family: 'Press Start 2P', monospace;
+    color: #FFB000;
+    font-size: 200px;
+    letter-spacing: 22px;
+    line-height: 1;
+    text-shadow:
+      0 8px 0 #C28800,
+      0 16px 0 #8A5F00,
+      0 28px 60px rgba(0,0,0,0.7),
+      0 0 80px rgba(255,176,0,0.25);
+  }
+
+  .subtitle {
+    margin-top: 38px;
+    font-size: 56px;
+    letter-spacing: 14px;
+    color: #FFFFFF;
+    font-weight: 800;
+    text-shadow: 0 3px 8px rgba(0,0,0,0.6);
+  }
+
+  .slogan {
+    margin-top: 30px;
+    font-size: 30px;
+    letter-spacing: 4px;
+    color: #56B4E9;
+    font-weight: 500;
+  }
+  .slogan b { color: #FFB000; font-weight: 800; }
+  .slogan .arrow { color: #FFFFFF; font-weight: 800; margin: 0 12px; }
+
+  /* corner brand */
+  .top-left {
+    position: absolute;
+    top: 50px; left: 70px;
+    z-index: 3;
+    color: #56B4E9;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 3px;
+  }
+  .top-left .dim { color: #6B7E94; font-weight: 500; margin-top: 4px; letter-spacing: 1px; font-size: 14px; }
+
+  .top-right {
+    position: absolute;
+    top: 50px; right: 70px;
+    z-index: 3;
+    text-align: right;
+    color: #FFB000;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  .top-right .dim { color: #B0B0B0; font-weight: 500; font-size: 14px; letter-spacing: 1px; margin-top: 4px; }
+
+  /* bottom badges (단순) */
+  .bottom-left {
+    position: absolute;
+    bottom: 50px; left: 70px;
+    z-index: 3;
+    font-size: 16px;
+    color: #B0B0B0;
+    letter-spacing: 1px;
+  }
+  .bottom-left b { color: #FFFFFF; font-weight: 700; }
+
+  .bottom-right {
+    position: absolute;
+    bottom: 50px; right: 70px;
+    z-index: 3;
+    text-align: right;
+    font-size: 16px;
+    color: #B0B0B0;
+    letter-spacing: 1px;
+  }
+  .bottom-right b { color: #56B4E9; font-weight: 700; }
+
+  /* prompt cursor */
+  .cursor {
+    display: inline-block;
+    width: 14px; height: 24px;
+    background: #FFB000;
+    vertical-align: middle;
+    margin-left: 8px;
+    box-shadow: 0 0 10px rgba(255,176,0,0.6);
+  }
+</style>
+</head>
+<body>
+  <div class="glow1"></div>
+  <div class="glow2"></div>
+
+  <div class="top-left">
+    ▸  ANTHROPIC  CLAUDE-CODE
+    <div class="dim">npm @anthropic-ai/claude-code · node 20 LTS</div>
+  </div>
+
+  <div class="top-right">
+    LINUX  MINT  21.3  XFCE
+    <div class="dim">Ubuntu 22.04 LTS · kernel 5.15 · lightdm</div>
+  </div>
+
+  <div class="center">
+    <div class="title">CCO</div>
+    <div class="subtitle">CLAUDE  CODE  OS</div>
+    <div class="slogan">USB <span class="arrow">→</span> BOOT <span class="arrow">→</span> <b>AI in 30 sec</b><span class="cursor"></span></div>
+  </div>
+
+  <div class="bottom-left">
+    <b>bootable LiveUSB</b>  ·  Ventoy persistence  ·  ko_KR.UTF-8
+  </div>
+
+  <div class="bottom-right">
+    github.com/Hostingglobal-Tech/<b>claude-code-os</b>
+  </div>
+</body>
+</html>
