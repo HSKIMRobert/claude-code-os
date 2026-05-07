@@ -2,15 +2,15 @@
 
 ![Claude Code OS](branding/cco-wallpaper.png)
 
-**Claude Code 가 OS 자체** 인 부팅 가능한 LiveUSB ISO 입니다.
+"Claude Code 가 OS 자체" 인 부팅 가능한 LiveUSB ISO 입니다.
 
 USB 한 개 꽂고 부팅하면 — `cco` 사용자 자동 로그인 → XFCE 데스크톱 (Wi-Fi GUI, 한글 입력, Firefox 내장) → xfce4-terminal 자동 시작 → ASCII banner → `claude --dangerously-skip-permissions`. OAuth 한 번이면 끝. 비밀번호 / Wi-Fi / 작업물 전부 Ventoy persistence 로 영구 저장.
 
-> **v2.0** 부터 Linux Mint 21.3 XFCE 기반 (Ubuntu 22.04 LTS). 이전 Alpine v1.0.x 시리즈는 [`archive/alpine-v1/`](archive/alpine-v1/) 참조.
+> "v2.0" 부터 Linux Mint 21.3 XFCE 기반 (Ubuntu 22.04 LTS). 이전 Alpine v1.0.x 시리즈는 [`archive/alpine-v1/`](archive/alpine-v1/) 참조.
 
 > 📋 [Full changelog](CHANGELOG.md) · [Install guide](INSTALL.md)
 
-**Languages**: [한국어](#한국어) · [English](#english)
+"Languages": [한국어](#한국어) · [English](#english)
 
 ---
 
@@ -26,17 +26,17 @@ AI 가 인터페이스 그 자체인데, 왜 그 앞에 OS 와 설치 과정을 
 
 ### 박힌 항목 (v2.0.3)
 
-- **base**: Linux Mint 21.3 XFCE (Ubuntu 22.04 LTS jammy)
-- **claude-code** (npm `@anthropic-ai/claude-code`) + **node v20 LTS**
-- **xfce4-terminal** 자동 시작 → claude OAuth
-- **firefox** 내장 (OAuth 인증용)
-- **NetworkManager + nm-applet** — Wi-Fi GUI 트레이
-- **ibus + ibus-hangul** — EN+KO 자동 등록 (`Shift+Space` / `Hangul` 키 토글)
-- **fonts**: Noto CJK KR (시스템 11pt), D2Coding 13pt (터미널), JetBrains Mono
-- **locale**: ko_KR.UTF-8 + Asia/Seoul timezone
-- **lightdm autologin** = `cco` (sudo NOPASSWD)
-- **Mint-Y-Dark-Aqua** 테마 + 커스텀 CCO wallpaper (Wong palette colorblind-safe)
-- **persistence**: Ventoy `casper-rw` 매핑 → 모든 변경 영구 저장
+- "base": Linux Mint 21.3 XFCE (Ubuntu 22.04 LTS jammy)
+- "claude-code" (npm `@anthropic-ai/claude-code`) + "node v20 LTS"
+- "xfce4-terminal" 자동 시작 → claude OAuth
+- "firefox" 내장 (OAuth 인증용)
+- "NetworkManager + nm-applet" — Wi-Fi GUI 트레이
+- "ibus + ibus-hangul" — EN+KO 자동 등록 (`Shift+Space` / `Hangul` 키 토글)
+- "fonts": Noto CJK KR (시스템 11pt), D2Coding 13pt (터미널), JetBrains Mono
+- "locale": ko_KR.UTF-8 + Asia/Seoul timezone
+- "lightdm autologin" = `cco` (sudo NOPASSWD)
+- "Mint-Y-Dark-Aqua" 테마 + 커스텀 CCO wallpaper (Wong palette colorblind-safe)
+- "persistence": Ventoy `casper-rw` 매핑 → 모든 변경 영구 저장
 
 ### 사용법
 
@@ -101,9 +101,9 @@ mkfs.ext4 -F -L casper-rw cco-persistence.dat
 - 일반 x86_64 PC (Intel HD/UHD/AMD GPU + Intel iwlwifi)
 
 ### 보안 안내
-**샌드박스가 아닙니다.** `claude --dangerously-skip-permissions` 로 root 권한 + 풀 네트워크 권한입니다. 중요한 머신에는 띄우지 마세요. LiveUSB 는 USB 안에서만 데이터 보존되며 호스트 디스크는 건드리지 않습니다.
+"샌드박스가 아닙니다." `claude --dangerously-skip-permissions` 로 root 권한 + 풀 네트워크 권한입니다. 중요한 머신에는 띄우지 마세요. LiveUSB 는 USB 안에서만 데이터 보존되며 호스트 디스크는 건드리지 않습니다.
 
-비밀번호 / Wi-Fi / OAuth 토큰은 **persistence dat 안에만** 저장됩니다. USB 분실 = 데이터 노출. 분실 시 `cco-persistence.dat` 만 삭제하면 초기화됩니다.
+비밀번호 / Wi-Fi / OAuth 토큰은 "persistence dat 안에만" 저장됩니다. USB 분실 = 데이터 노출. 분실 시 `cco-persistence.dat` 만 삭제하면 초기화됩니다.
 
 ---
 
@@ -119,8 +119,8 @@ Boot → 30 sec → auth → AI.
 
 ### What's inside (v2.0.3)
 
-- **base**: Linux Mint 21.3 XFCE (Ubuntu 22.04 LTS jammy)
-- **claude-code** (npm `@anthropic-ai/claude-code`) on **Node 20 LTS**
+- "base": Linux Mint 21.3 XFCE (Ubuntu 22.04 LTS jammy)
+- "claude-code" (npm `@anthropic-ai/claude-code`) on "Node 20 LTS"
 - xfce4-terminal autostart → claude OAuth
 - Firefox bundled
 - NetworkManager + nm-applet (Wi-Fi tray)
@@ -151,7 +151,7 @@ Flash USB with [Ventoy](https://www.ventoy.net/), drop the ISO + a 3.5 GB ext4 f
 ASUS X515 · Samsung NT900X3A · generic x86_64 PCs (Intel HD/UHD/AMD GPU, Intel iwlwifi)
 
 ### Security
-**Not a sandbox.** `claude --dangerously-skip-permissions` runs as root with full network. Don't run on machines with sensitive data on disk. LiveUSB doesn't touch host disks; all state lives in `cco-persistence.dat` on the USB. Lose the USB = lose secrets. Delete `cco-persistence.dat` to reset.
+"Not a sandbox." `claude --dangerously-skip-permissions` runs as root with full network. Don't run on machines with sensitive data on disk. LiveUSB doesn't touch host disks; all state lives in `cco-persistence.dat` on the USB. Lose the USB = lose secrets. Delete `cco-persistence.dat` to reset.
 
 ---
 
