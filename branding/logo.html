@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 1480px;
+    height: 920px;
+    background:
+      radial-gradient(1200px 850px at 30% 20%, #1B2C4F 0%, #0E1A30 45%, #050913 85%),
+      #050913;
+    font-family: 'JetBrains Mono', 'D2Coding', monospace;
+    overflow: hidden;
+  }
+
+  /* XFCE bottom panel (Mint default) */
+  .panel {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 32px;
+    background: rgba(15, 20, 32, 0.96);
+    border-top: 1px solid rgba(86,180,233,0.15);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    color: #E8E8E8;
+    font-size: 13px;
+    z-index: 5;
+    font-weight: 500;
+  }
+  .panel .menu {
+    background: #56B4E9;
+    color: #050913;
+    padding: 4px 12px;
+    border-radius: 3px;
+    font-weight: 700;
+  }
+  .panel .sep { flex: 1; }
+  .panel .tray { display: flex; gap: 16px; color: #FFFFFF; align-items: center; }
+  .panel .tray .ws { color: #FFB000; font-weight: 700; }
+
+  /* desktop icon (top-left) */
+  .deskicon {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 90px;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    z-index: 1;
+  }
+  .deskicon .img {
+    width: 64px; height: 64px;
+    margin: 0 auto 6px;
+    background: linear-gradient(180deg, #FFB000 0%, #C28800 100%);
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,0.2), 0 4px 12px rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+    color: #050913; font-size: 22px; font-weight: 700;
+    letter-spacing: -1px;
+  }
+
+  /* xfce4-terminal window */
+  .term {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -52%);
+    width: 1280px;
+    height: 760px;
+    background: #0E0E0E;
+    border-radius: 6px;
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.7),
+      0 0 0 1px rgba(0,0,0,0.6);
+    overflow: hidden;
+  }
+  .term .titlebar {
+    height: 30px;
+    background: linear-gradient(180deg, #3A3D40 0%, #2C2E30 100%);
+    border-bottom: 1px solid #1A1A1A;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    color: #E8E8E8;
+    font-size: 13px;
+    position: relative;
+    font-weight: 500;
+  }
+  .term .titlebar .title {
+    flex: 1;
+    text-align: center;
+    letter-spacing: 0.3px;
+  }
+  .term .ctrls { display: flex; gap: 4px; }
+  .term .ctrls .b {
+    width: 22px; height: 18px;
+    display: flex; align-items: center; justify-content: center;
+    color: #E8E8E8;
+    font-size: 12px;
+    border-radius: 3px;
+  }
+  .term .ctrls .x:hover { background: #D55E00; color: #fff; }
+
+  .term .menubar {
+    height: 26px;
+    background: #2C2E30;
+    border-bottom: 1px solid #1A1A1A;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 18px;
+    color: #E8E8E8;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .term .body {
+    background: #0A0A0A;
+    color: #FFFFFF;
+    padding: 24px 32px 28px 32px;
+    font-family: 'JetBrains Mono', 'D2Coding', monospace;
+    font-size: 15px;
+    line-height: 1.45;
+    height: calc(760px - 30px - 26px);
+    overflow: hidden;
+  }
+
+  /* Big yellow ASCII banner */
+  .banner {
+    color: #FFB000;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.05;
+    text-shadow: 0 0 10px rgba(255,176,0,0.18);
+    white-space: pre;
+  }
+  .banner .meta { color: #FFB000; font-size: 15px; font-weight: 500; }
+  .submeta { color: #D4D4D4; font-size: 14px; margin: 10px 0 18px 0; font-weight: 500; }
+  .submeta b { color: #56B4E9; font-weight: 700; }
+
+  /* Welcome box — CSS borders (Wong palette: vermillion border) */
+  .welcome {
+    margin-top: 6px;
+    border: 2px solid #D55E00;
+    border-radius: 12px;
+    padding: 18px 24px;
+    color: #FFFFFF;
+    font-size: 14.5px;
+    line-height: 1.65;
+    background: rgba(213, 94, 0, 0.05);
+  }
+  .welcome .head {
+    color: #FFB000;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.3px;
+  }
+  .welcome .star { color: #D55E00; margin-right: 8px; font-size: 17px; }
+  .welcome .row { color: #FFFFFF; font-weight: 500; }
+  .welcome .key { color: #56B4E9; font-weight: 700; }
+  .welcome .dim { color: #D4D4D4; }
+  .welcome .gap { height: 6px; }
+
+  .tips {
+    color: #FFFFFF;
+    font-size: 13.5px;
+    margin-top: 18px;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+  .tips .head { color: #56B4E9; font-weight: 700; margin-bottom: 4px; }
+  .tips .num { color: #56B4E9; font-weight: 700; margin-right: 4px; }
+  .tips .key { color: #FFB000; font-weight: 700; }
+
+  .promptline {
+    margin-top: 26px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .promptline .gt { color: #FFB000; font-weight: 700; }
+  .cursor {
+    display: inline-block;
+    width: 9px; height: 18px;
+    background: #FFFFFF;
+    vertical-align: text-bottom;
+    margin-left: 4px;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+</style>
+</head>
+<body>
+
+<!-- desktop icon -->
+<div class="deskicon">
+  <div class="img">CCO</div>
+  <div>Claude Code OS</div>
+</div>
+
+<!-- xfce4-terminal -->
+<div class="term">
+
+  <div class="titlebar">
+    <div class="title">Claude Code OS — cco@cco-live: ~</div>
+    <div class="ctrls">
+      <div class="b">—</div>
+      <div class="b">▢</div>
+      <div class="b x">✕</div>
+    </div>
+  </div>
+
+  <div class="menubar">
+    <span>File</span><span>Edit</span><span>View</span><span>Terminal</span><span>Tabs</span><span>Help</span>
+  </div>
+
+  <div class="body">
+
+<div class="banner">
+   ██████╗  ██████╗  ██████╗
+  ██╔════╝ ██╔════╝ ██╔═══██╗
+  ██║      ██║      ██║   ██║      <span class="meta">Claude Code OS</span>
+  ██║      ██║      ██║   ██║      <span class="meta">v2.0.1  ·  Mint 21.3 XFCE</span>
+  ╚██████╗ ╚██████╗ ╚██████╔╝      <span class="meta">user: cco  (sudo NOPASSWD)</span>
+   ╚═════╝  ╚═════╝  ╚═════╝       <span class="meta">net : NetworkManager (Wi-Fi GUI)</span>
+</div>
+
+<div class="submeta">  <b>bootable LiveUSB</b> · Ventoy persistence · ibus-hangul · D2Coding · firefox · node v20</div>
+
+<div class="welcome">
+  <div class="head"><span class="star">✻</span>Welcome to Claude Code!</div>
+  <div class="gap"></div>
+  <div class="row dim">/help for help, /status for your current setup</div>
+  <div class="gap"></div>
+  <div class="row"><span class="key">cwd</span>:&nbsp;&nbsp; /home/cco</div>
+  <div class="row"><span class="key">model</span>: claude-opus-4-7  (Anthropic MAX subscription)</div>
+</div>
+
+<div class="tips">
+  <div class="head">▸ Tips for getting started</div>
+  <div><span class="num">1.</span> Connect Wi-Fi from the bottom-right tray (nm-applet)</div>
+  <div><span class="num">2.</span> Type your task in plain Korean or English</div>
+  <div><span class="num">3.</span> Press <span class="key">Shift+Space</span> to toggle 한/영 input</div>
+  <div><span class="num">4.</span> All work persists on the USB (casper-rw 3.5GB)</div>
+</div>
+
+<div class="promptline"><span class="gt">&gt;</span> <span class="cursor"></span></div>
+
+  </div>
+</div>
+
+<!-- panel -->
+<div class="panel">
+  <div class="menu">⊞ Menu</div>
+  <div style="margin-left:12px; color:#E8E8E8">▣ Claude Code OS — cco@cco-live: ~</div>
+  <div class="sep"></div>
+  <div class="tray">
+    <span>📶</span><span>🔊</span><span class="ws">▣ 1</span><span>2026-05-07  18:57</span>
+  </div>
+</div>
+
+</body>
+</html>

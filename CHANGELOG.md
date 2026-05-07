@@ -4,7 +4,76 @@
 
 ---
 
-## v1.0.35 (2026-05-05) — Xauthority + iwd 첫 부팅 fix
+## v2.0.3 (2026-05-08) — 한글 입력기 EN+KO 자동 등록 + 가독성 폰트
+
+### 추가
+- **ibus 입력 source 자동 등록** — `xkb:us::eng` (EN) + `hangul` (KO) preload, 부팅 후 즉시 토글 가능
+- **토글 키** — `Shift+Space` / `Hangul` 키 / `Super+Space`
+- **GTK 시스템 폰트** — `Noto Sans CJK KR 11pt` (메뉴/대화상자 한글 가독성)
+- **xfwm4 윈도우 제목** — `Noto Sans CJK KR Bold 11`
+- **xsettings.xml** — Mint-Y-Dark-Aqua 테마 + Mint-Y 아이콘 + DMZ-White 커서 + Xft hinting
+
+### 변경
+- 자동 등록 스크립트 `/usr/local/bin/cco-ibus-setup` (autostart, ibus-daemon 시작 후 4초 지연)
+
+---
+
+## v2.0.2 (2026-05-08) — 한글 locale + KST timezone
+
+### 추가
+- **language-pack-ko / language-pack-ko-base / locales / tzdata** apt install
+- **ko_KR.UTF-8 locale** — `update-locale LANG=ko_KR.UTF-8 LANGUAGE=ko_KR:ko LC_ALL=ko_KR.UTF-8`
+- **Asia/Seoul timezone** — `/etc/localtime` 심볼릭 + `/etc/timezone`
+- `/home/cco/.profile` 의 LANG 도 ko_KR.UTF-8 로 갱신
+
+---
+
+## v2.0.1 (2026-05-07) — wallpaper / lightdm / 데스크톱 아이콘
+
+### 추가
+- **데스크톱 wallpaper** = `/usr/share/backgrounds/cco/wallpaper.png` (1920×1080, Wong colorblind-safe palette + IBM yellow)
+  - 다크 네이비 그라디언트 배경 + 거대 노란 픽셀 CCO + 좌상 Available Tools / 우상 System / 좌하 Target hardware / 우하 anthropic
+  - xfconf desktop image (multi-monitor: monitor0 / monitorVGA-1 / monitoreDP-1 / monitorLVDS-1)
+- **lightdm 로그인 배경** — slick-greeter (Mint 기본) + lightdm-gtk-greeter fallback
+- **`~/Desktop/CCO.desktop`** — 데스크톱 좌측 상단 단축키
+- **xfce4-terminal terminalrc** — 검정 배경 + D2Coding 13pt + JetBrains Mono + yellow cursor + 120×36 geometry
+- **xfwm4 테마** — Mint-Y-Dark-Aqua (헤더 우측 컨트롤 [— ▢ ✕])
+
+### 보안
+- Wong palette 적용 (deuteranopia / protanopia / tritanopia 모두 구분 가능, contrast ratio AAA)
+
+---
+
+## v2.0.0 (2026-05-06) — Alpine 폐기, Linux Mint 21.3 XFCE 베이스 전환
+
+### 폐기 이유
+사장님 결정 — Alpine v1.0.x 시리즈 (~v1.0.36) 누적 회귀:
+- ASUS X515 — 저해상도 vesa fallback + 키보드/마우스 먹통 (mesa-dri-gallium / linux-firmware 부재)
+- Samsung NT900X3A — X 윈도우 화면 미표시
+- v1.0.36 — `localhost login:` 프롬프트에서 진행 X (Alpine init line 986 default switch_root 가 patch 보다 먼저 실행)
+- "용량도 크고 부팅시간도 엄청 느리고 드라이버도 없고"
+
+### Mint 베이스 장점
+- Ubuntu 22.04 LTS jammy 호환 (모든 .deb / PPA / apt 동작)
+- linux-firmware 풀세트 (모든 Wi-Fi / GPU / 오디오 드라이버 자동)
+- Firefox / nm-applet / xfce4-terminal 모두 내장
+- Samsung 900X 같은 옛 노트북도 native 부팅
+
+### 박힘
+- Linux Mint 21.3 XFCE LiveCD (`linuxmint-21.3-xfce-64bit.iso`) 가져와 chroot 안 추가 패키지 박음
+- `claude-code` (Node v20 LTS) + `ibus-hangul` + Naver D2Coding (GitHub release zip)
+- `cco` user (NOPASSWD sudo, autologin / nopasswdlogin / sudo / audio / video / plugdev / netdev 그룹)
+- `cco-startup` 스크립트 = ASCII banner + claude 자동 시작
+- `~/.config/autostart/cco-startup.desktop` + `ibus-daemon.desktop`
+- slim — apt cache + man / doc / info + non-en/ko locale 제거
+
+### 빌드 결과물
+- `cco-mint-v2.0.0.iso` (~3.3 GB)
+- xorriso ISO repack (`-boot_image any replay`) 으로 Mint 의 boot record (El Torito + isohybrid GPT) 보존
+
+---
+
+## v1.0.35 (2026-05-05) — Xauthority + iwd 첫 부팅 fix (Alpine, 마지막 v1.x)
 
 ### 수정
 - **`.Xauthority does not exist`** — `/home/cco/.Xauthority` 빈 파일 미리 생성 (chmod 600). `.profile` 에 `startx` 직전 fallback 추가.

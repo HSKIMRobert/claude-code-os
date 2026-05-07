@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+    background:
+      radial-gradient(1500px 1100px at 30% 25%, #1B2C4F 0%, #0E1A30 45%, #050913 85%),
+      #050913;
+    color: #FFFFFF;
+    position: relative;
+  }
+
+  /* faint grid lines for tech feel — sky blue, low alpha */
+  body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(86,180,233,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(86,180,233,0.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+  }
+
+  /* vignette */
+  body::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 50%, transparent 55%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+  }
+
+  .center {
+    position: absolute;
+    left: 50%;
+    top: 47%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2;
+  }
+
+  /* Big yellow CCO — pixel font, IBM yellow, deep shadow for depth + contrast */
+  .title {
+    font-family: 'Press Start 2P', monospace;
+    color: #FFB000;
+    font-size: 110px;
+    letter-spacing: 14px;
+    line-height: 1.0;
+    text-shadow:
+      0 6px 0 #C28800,
+      0 12px 0 #8A5F00,
+      0 18px 30px rgba(0,0,0,0.7);
+  }
+
+  .subtitle {
+    margin-top: 50px;
+    font-size: 40px;
+    color: #FFB000;
+    letter-spacing: 6px;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+
+  .meta {
+    margin-top: 22px;
+    font-size: 22px;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+  .meta b { color: #56B4E9; font-weight: 700; }
+
+  .meta2 {
+    margin-top: 12px;
+    font-size: 20px;
+    color: #D4D4D4;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+  .meta2 b { color: #FFB000; font-weight: 700; }
+
+  /* corner badges */
+  .badge-top-left {
+    position: absolute;
+    top: 60px; left: 70px;
+    color: #FFFFFF;
+    font-size: 18px;
+    line-height: 1.7;
+    font-weight: 500;
+    z-index: 2;
+  }
+  .badge-top-left .h { color: #56B4E9; font-weight: 700; font-size: 19px; margin-bottom: 6px; letter-spacing: 1px; }
+  .badge-top-left .row::before { content: '▸  '; color: #56B4E9; }
+
+  .badge-top-right {
+    position: absolute;
+    top: 60px; right: 70px;
+    text-align: right;
+    color: #FFFFFF;
+    font-size: 18px;
+    line-height: 1.7;
+    font-weight: 500;
+    z-index: 2;
+  }
+  .badge-top-right .h { color: #D55E00; font-weight: 700; font-size: 19px; margin-bottom: 6px; letter-spacing: 1px; }
+
+  .badge-bottom-left {
+    position: absolute;
+    bottom: 60px; left: 70px;
+    color: #FFFFFF;
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 500;
+    z-index: 2;
+  }
+  .badge-bottom-left .h { color: #D55E00; font-weight: 700; font-size: 18px; margin-bottom: 4px; letter-spacing: 1px; }
+  .badge-bottom-left b { color: #FFB000; font-weight: 700; }
+
+  .badge-bottom-right {
+    position: absolute;
+    bottom: 60px; right: 70px;
+    text-align: right;
+    color: #D4D4D4;
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 500;
+    z-index: 2;
+  }
+  .badge-bottom-right b { color: #FFFFFF; font-weight: 700; }
+  .badge-bottom-right .accent { color: #56B4E9; }
+</style>
+</head>
+<body>
+
+  <!-- top-left: tools (sky blue header) -->
+  <div class="badge-top-left">
+    <div class="h">▸  AVAILABLE  TOOLS</div>
+    <div class="row">claude  --dangerously-skip-permissions</div>
+    <div class="row">firefox  ·  xfce4-terminal  ·  thunar</div>
+    <div class="row">node v20 LTS  ·  npm  ·  bash</div>
+    <div class="row">NetworkManager  ·  nm-applet  (Wi-Fi GUI)</div>
+    <div class="row">ibus-hangul   (Shift+Space  한/영)</div>
+  </div>
+
+  <!-- top-right: spec (vermillion header) -->
+  <div class="badge-top-right">
+    <div class="h">▸  SYSTEM</div>
+    <div>Linux Mint 21.3   XFCE</div>
+    <div>Ubuntu 22.04 LTS   (jammy)</div>
+    <div>kernel 5.15  ·  xorg  ·  lightdm</div>
+    <div>D2Coding  ·  Noto CJK KR</div>
+    <div>persistence:  casper-rw  3.5GB</div>
+  </div>
+
+  <!-- center -->
+  <div class="center">
+    <div class="title">CCO</div>
+    <div class="subtitle">CLAUDE  CODE  OS</div>
+    <div class="meta">
+      <b>v2.0.3</b>  ·  bootable LiveUSB  ·  Ventoy persistence
+    </div>
+    <div class="meta2">
+      <b>user</b> cco   ·   <b>sudo</b> NOPASSWD   ·   <b>autologin</b> on
+    </div>
+  </div>
+
+  <!-- bottom-left: target hardware (vermillion header) -->
+  <div class="badge-bottom-left">
+    <div class="h">▸  TARGET  HARDWARE</div>
+    <div>ASUS X515  ·  Samsung NT900X3A  ·  any x86_64 PC</div>
+    <div>boot via Ventoy USB  ·  <b>F12 / ESC</b>  for boot menu</div>
+  </div>
+
+  <!-- bottom-right: brand -->
+  <div class="badge-bottom-right">
+    <b>anthropic</b>   claude-code<br>
+    github.com/Hostingglobal-Tech/claude-code-os<br>
+    <span class="accent">2026.05.08</span>
+  </div>
+
+</body>
+</html>
