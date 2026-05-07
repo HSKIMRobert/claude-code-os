@@ -1,5 +1,7 @@
 # Claude Code OS (CCO) — LiveUSB
 
+![Claude Code OS](branding/cco-wallpaper.png)
+
 **Claude Code 가 OS 자체** 인 부팅 가능한 LiveUSB ISO 입니다.
 
 USB 한 개 꽂고 부팅하면 — `cco` 사용자 자동 로그인 → XFCE 데스크톱 (Wi-Fi GUI, 한글 입력, Firefox 내장) → xfce4-terminal 자동 시작 → ASCII banner → `claude --dangerously-skip-permissions`. OAuth 한 번이면 끝. 비밀번호 / Wi-Fi / 작업물 전부 Ventoy persistence 로 영구 저장.
