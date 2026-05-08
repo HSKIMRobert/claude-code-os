@@ -6,7 +6,7 @@ set -e
 WORK_DIR="${WORK_DIR:-$(pwd)}"
 cd "$WORK_DIR"
 
-VERSION="${VERSION:-2.0.4}"
+VERSION="${VERSION:-2.0.5}"
 ISO_OUT="${ISO_OUT:-aicode-os-v${VERSION}.iso}"
 ISO_IN="${ISO_IN:-linuxmint-21.3-xfce-64bit.iso}"
 WALLPAPER_PNG="${WALLPAPER_PNG:-${WORK_DIR}/branding/cco-wallpaper.png}"

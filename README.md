@@ -4,7 +4,7 @@
 
 **AI 코더 두 명 (Anthropic Claude Code + OpenAI Codex CLI) 이 같이 박힌** 부팅 가능한 LiveUSB ISO. Linux Mint 21.3 XFCE 기반.
 
-USB 한 개 꽂고 부팅하면 — `cco` 사용자 자동 로그인 → XFCE 데스크톱 (Wi-Fi GUI, 한글 입력, Firefox 내장) → **xfce4-terminal 두 창 자동 시작** (좌: Claude Code, 우: OpenAI Codex). OAuth 한 번이면 끝. Wi-Fi 비번 / 작업물 / 설치한 패키지 전부 Ventoy persistence 로 영구 저장.
+USB 한 개 꽂고 부팅하면 — `cco` 사용자 자동 로그인 → XFCE 데스크톱 (Wi-Fi GUI, 한글 입력, Firefox 내장) → **xfce4-terminal 한 창에 두 탭 자동** (좌탭: Claude Code, 우탭: OpenAI Codex). OAuth 한 번이면 끝. Wi-Fi 비번 / 작업물 / 설치한 패키지 전부 Ventoy persistence 로 영구 저장.
 
 > "v2.0" 부터 Linux Mint 21.3 XFCE 기반. 이전 Alpine v1.0.x 시리즈는 [`archive/alpine-v1/`](archive/alpine-v1/) 참조.
 
@@ -24,11 +24,11 @@ AI 가 인터페이스 그 자체인데, 왜 그 앞에 OS 와 설치 과정을 
 
 부팅 → 30초 → 인증 → AI.
 
-### 박힌 항목 (v2.0.4)
+### 박힌 항목 (v2.0.5)
 
 - "base": Linux Mint 21.3 XFCE (Ubuntu 22.04 LTS jammy)
-- "Anthropic Claude Code" (npm `@anthropic-ai/claude-code`) — 좌측 창 자동
-- "OpenAI Codex CLI" (npm `@openai/codex`) — 우측 창 자동
+- "Anthropic Claude Code" (npm `@anthropic-ai/claude-code`) — 좌탭 자동 시작
+- "OpenAI Codex CLI" (npm `@openai/codex`) — 우탭 자동 시작 (한 창 두 탭)
 - "node v20 LTS" + "firefox" 내장 (OAuth 인증용)
 - "NetworkManager + nm-applet" — Wi-Fi GUI 트레이
 - "ibus + ibus-hangul" — EN+KO 자동 등록 (`Shift+Space` 토글)
@@ -41,22 +41,22 @@ AI 가 인터페이스 그 자체인데, 왜 그 앞에 OS 와 설치 과정을 
 ### 사용법
 
 #### 1. ISO 다운로드 (권장)
-[Releases](https://github.com/Hostingglobal-Tech/claude-code-os/releases) 에서 v2.0.4 의 세 파일 다운로드:
-- `aicode-os-v2.0.4.iso.part1` (1.99 GB)
-- `aicode-os-v2.0.4.iso.part2` (1.42 GB)
-- `aicode-os-v2.0.4.iso.sha256`
+[Releases](https://github.com/Hostingglobal-Tech/claude-code-os/releases) 에서 v2.0.5 의 세 파일 다운로드:
+- `aicode-os-v2.0.5.iso.part1` (1.99 GB)
+- `aicode-os-v2.0.5.iso.part2` (1.65 GB)
+- `aicode-os-v2.0.5.iso.sha256`
 
 ISO 가 GitHub Release 단일 한도 (2 GB) 초과로 두 part 로 분할되어 있습니다. 합치기:
 
 Linux / WSL / macOS:
 ```bash
-cat aicode-os-v2.0.4.iso.part1 aicode-os-v2.0.4.iso.part2 > aicode-os-v2.0.4.iso
-sha256sum -c aicode-os-v2.0.4.iso.sha256
+cat aicode-os-v2.0.5.iso.part1 aicode-os-v2.0.5.iso.part2 > aicode-os-v2.0.5.iso
+sha256sum -c aicode-os-v2.0.5.iso.sha256
 ```
 
 Windows (cmd):
 ```cmd
-copy /b aicode-os-v2.0.4.iso.part1+aicode-os-v2.0.4.iso.part2 aicode-os-v2.0.4.iso
+copy /b aicode-os-v2.0.5.iso.part1+aicode-os-v2.0.5.iso.part2 aicode-os-v2.0.5.iso
 ```
 
 #### 1-1. (선택) 직접 빌드
@@ -69,7 +69,7 @@ cp repo/branding/cco-wallpaper.png branding/
 
 # 빌드 (mksquashfs ~30분, 전체 ~35분)
 sudo bash build-mint.sh
-# → aicode-os-v2.0.4.iso (~3.4 GB)
+# → aicode-os-v2.0.5.iso (~3.4 GB)
 ```
 
 빌드 의존성: `xorriso`, `unsquashfs`, `mksquashfs` (`squashfs-tools`, `xorriso` 패키지)
@@ -79,7 +79,7 @@ sudo bash build-mint.sh
 
 #### 3. ISO + persistence dat 복사
 ```
-F:\aicode-os-v2.0.4.iso       (3.4 GB)
+F:\aicode-os-v2.0.5.iso       (3.4 GB)
 F:\cco-persistence.dat        (3.5 GB, ext4 label=casper-rw)
 F:\ventoy\ventoy.json
 ```
@@ -96,11 +96,11 @@ mkfs.ext4 -F -L casper-rw cco-persistence.dat
   "control": [
     { "VTOY_DEFAULT_MENU_MODE": "0" },
     { "VTOY_MENU_TIMEOUT": "3" },
-    { "VTOY_DEFAULT_IMAGE": "/aicode-os-v2.0.4.iso" }
+    { "VTOY_DEFAULT_IMAGE": "/aicode-os-v2.0.5.iso" }
   ],
   "persistence": [
     {
-      "image": "/aicode-os-v2.0.4.iso",
+      "image": "/aicode-os-v2.0.5.iso",
       "backend": "/cco-persistence.dat",
       "autosel": 1
     }
@@ -109,7 +109,7 @@ mkfs.ext4 -F -L casper-rw cco-persistence.dat
 ```
 
 #### 4. 부팅
-대상 PC 에서 USB 꽂고 → BIOS 부팅 메뉴 (F12 / ESC / F2) → USB 선택 → Ventoy → 3초 후 자동 → 30초 후 두 창 (Claude + Codex) 자동 시작.
+대상 PC 에서 USB 꽂고 → BIOS 부팅 메뉴 (F12 / ESC / F2) → USB 선택 → Ventoy → 3초 후 자동 → 30초 후 xfce4-terminal 한 창에 두 탭 (Claude / Codex) 자동.
 
 ### Codex 인증
 첫 부팅 시 Codex 창에서 `OPENAI_API_KEY` 환경변수 설정 또는 ChatGPT 계정으로 로그인. Persistence 덕분에 한 번만.
@@ -134,11 +134,11 @@ Talking to AI takes too many steps — install OS, drivers, browser, Node, npm, 
 
 Boot → 30 sec → auth → AI.
 
-### What's inside (v2.0.4)
+### What's inside (v2.0.5)
 
 - base: Linux Mint 21.3 XFCE (Ubuntu 22.04 LTS jammy)
-- **Anthropic Claude Code** (npm `@anthropic-ai/claude-code`) — left window
-- **OpenAI Codex CLI** (npm `@openai/codex`) — right window
+- **Anthropic Claude Code** (npm `@anthropic-ai/claude-code`) — left tab
+- **OpenAI Codex CLI** (npm `@openai/codex`) — right tab (single xfce4-terminal, two tabs)
 - node v20 LTS + Firefox + nm-applet (Wi-Fi GUI)
 - ibus + ibus-hangul, EN+KO preloaded (`Shift+Space` toggle)
 - Korean locale (ko_KR.UTF-8) + Asia/Seoul tz
@@ -156,12 +156,12 @@ cp repo/build-mint.sh .
 cp repo/branding/cco-wallpaper.png branding/
 
 sudo bash build-mint.sh   # ~35 minutes
-# → aicode-os-v2.0.4.iso (~3.4 GB)
+# → aicode-os-v2.0.5.iso (~3.4 GB)
 ```
 
 ### Use
 
-Flash USB with [Ventoy](https://www.ventoy.net/), drop the ISO + a 3.5 GB ext4 file labeled `casper-rw` named `cco-persistence.dat`, edit `ventoy/ventoy.json` for default boot + persistence (see Korean section above), boot from USB. Two terminals (Claude + Codex) auto-launch.
+Flash USB with [Ventoy](https://www.ventoy.net/), drop the ISO + a 3.5 GB ext4 file labeled `casper-rw` named `cco-persistence.dat`, edit `ventoy/ventoy.json` for default boot + persistence (see Korean section above), boot from USB. One xfce4-terminal with two tabs (Claude + Codex) auto-launches.
 
 ### Tested hardware
 ASUS X515 · Samsung NT900X3A · generic x86_64 PCs (Intel HD/UHD/AMD GPU, Intel iwlwifi)

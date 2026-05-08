@@ -4,6 +4,32 @@
 
 ---
 
+## v2.0.5 (2026-05-09) — 한 창 두 탭 (Claude + Codex) + 화면 사이즈 무관
+
+### 수정 (v2.0.4 의 회귀 fix)
+- **두 별도 xfce4-terminal 창 → 한 창 두 탭**
+  - v2.0.4 의 `--geometry=+1000+450` 좌표가 1366×768 (Samsung NT900X3A 등) 화면 밖이라 Codex 창이 안 보였음
+  - v2.0.5 = `xfce4-terminal --maximize --tab` (한 창에 좌탭 Claude / 우탭 Codex) — 모든 화면 사이즈에서 OK
+- **graceful 종료** — claude / codex 종료 시 `exec bash` (창 살아있고 재시작 가능)
+- **Codex 첫 실행 안내** — `OPENAI_API_KEY` / `~/.codex/auth.json` 부재 시 setup 가이드 자동 출력
+- **첫 부팅 시 stale 정리** — `aicode-startup-dual` 이 옛 v2.0.0~v2.0.4 의 stale `~/.config/autostart/*.desktop` 자동 rm
+
+### 빌드 인프라 fix
+- **chroot bind mount 잔존 = mksquashfs deadlock 원인** 발견 — 매 빌드 끝에 `umount -f -l` + verify 박음
+- **direct-patch 빌드 방식** — Mint apt mirror 404 회피 위해 v2.0.4 sqfs base + file 패치만 + 새 mksquashfs (chroot apt 단계 0)
+
+### 추가 데스크톱 아이콘
+- `AICODE-OS.desktop` (통합 — 두 탭 wrapper)
+- `AICODE-Claude.desktop` (Claude 단독)
+- `AICODE-Codex.desktop` (Codex 단독)
+
+### Asset
+- `aicode-os-v2.0.5.iso.part1` (1.99 GB)
+- `aicode-os-v2.0.5.iso.part2` (1.65 GB)
+- `aicode-os-v2.0.5.iso.sha256` (`0dfba30e377dc42db3e9dfb830462e0134ebc12de7eec2efb3164f6fc4d92a0a`)
+
+---
+
 ## v2.0.4 (2026-05-08) — OpenAI Codex CLI 통합 + AICODE-OS 브랜드 전환
 
 ### 추가
