@@ -4,6 +4,28 @@
 
 ---
 
+## v2.0.4 (2026-05-08) — OpenAI Codex CLI 통합 + AICODE-OS 브랜드 전환
+
+### 추가
+- **OpenAI Codex CLI** (`npm @openai/codex`) chroot 안 install — Anthropic Claude Code 와 함께 두 AI 코더 탑재
+- **부팅 시 두 창 자동 시작**:
+  - 좌측: `xfce4-terminal` geometry 120×36+50+80 → `aicode-startup-claude` → claude
+  - 우측: `xfce4-terminal` geometry 100×30+1000+450 → `aicode-startup-codex` → codex (2초 지연 시작)
+- **데스크톱 아이콘 두 개**: `AICODE-Claude.desktop` + `AICODE-Codex.desktop`
+- ASCII banner 갱신 — 거대 "AICODE OS" 노란/하늘색 (Claude/Codex 각 창 색 구분)
+
+### 브랜드 변경
+- 통합 이름 = **AICODE-OS** (사장님 결정)
+- ISO 파일명 `cco-mint-v2.0.x.iso` → `aicode-os-v2.0.4.iso`
+- wallpaper / cover / logo 모두 "AICODE-OS" + Claude + Codex 배지 (yellow + sky blue)
+- cluster-skills 정본 폴더 `cco-mint/` → `aicode-os/` git mv
+- repo 이름 `claude-code-os` 유지 (URL 호환성)
+
+### 수정
+- cover title 한 줄 표시 (font-size 96px + letter-spacing 8px + white-space:nowrap)
+
+---
+
 ## v2.0.3 (2026-05-08) — 한글 입력기 EN+KO 자동 등록 + 가독성 폰트
 
 ### 추가

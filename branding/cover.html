@@ -19,7 +19,6 @@
     position: relative;
   }
 
-  /* subtle grid */
   body::before {
     content: '';
     position: absolute; inset: 0;
@@ -30,23 +29,21 @@
     pointer-events: none;
   }
 
-  /* glow blobs */
   .glow1 {
     position: absolute;
     width: 800px; height: 800px;
     left: -200px; top: -300px;
-    background: radial-gradient(circle, rgba(255,176,0,0.08) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(255,176,0,0.10) 0%, transparent 60%);
     pointer-events: none;
   }
   .glow2 {
     position: absolute;
     width: 900px; height: 900px;
     right: -250px; bottom: -300px;
-    background: radial-gradient(circle, rgba(86,180,233,0.10) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(86,180,233,0.12) 0%, transparent 60%);
     pointer-events: none;
   }
 
-  /* center column */
   .center {
     position: absolute;
     left: 50%; top: 50%;
@@ -55,13 +52,13 @@
     z-index: 3;
   }
 
-  /* CCO huge title */
   .title {
     font-family: 'Press Start 2P', monospace;
     color: #FFB000;
-    font-size: 200px;
-    letter-spacing: 22px;
+    font-size: 96px;
+    letter-spacing: 8px;
     line-height: 1;
+    white-space: nowrap;
     text-shadow:
       0 8px 0 #C28800,
       0 16px 0 #8A5F00,
@@ -70,25 +67,51 @@
   }
 
   .subtitle {
-    margin-top: 38px;
-    font-size: 56px;
-    letter-spacing: 14px;
+    margin-top: 36px;
+    font-size: 44px;
+    letter-spacing: 10px;
     color: #FFFFFF;
     font-weight: 800;
     text-shadow: 0 3px 8px rgba(0,0,0,0.6);
   }
 
+  .badges {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    align-items: center;
+  }
+  .badge {
+    padding: 10px 22px;
+    border: 2px solid;
+    border-radius: 999px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  .b-claude { color: #FFB000; border-color: #FFB000; background: rgba(255,176,0,0.08); }
+  .b-codex  { color: #56B4E9; border-color: #56B4E9; background: rgba(86,180,233,0.08); }
+  .plus { color: #FFFFFF; font-size: 28px; font-weight: 800; }
+
   .slogan {
-    margin-top: 30px;
-    font-size: 30px;
+    margin-top: 36px;
+    font-size: 26px;
     letter-spacing: 4px;
-    color: #56B4E9;
+    color: #D4D4D4;
     font-weight: 500;
   }
   .slogan b { color: #FFB000; font-weight: 800; }
   .slogan .arrow { color: #FFFFFF; font-weight: 800; margin: 0 12px; }
+  .cursor {
+    display: inline-block;
+    width: 12px; height: 22px;
+    background: #FFB000;
+    vertical-align: middle;
+    margin-left: 8px;
+    box-shadow: 0 0 10px rgba(255,176,0,0.6);
+  }
 
-  /* corner brand */
   .top-left {
     position: absolute;
     top: 50px; left: 70px;
@@ -96,7 +119,7 @@
     color: #56B4E9;
     font-size: 17px;
     font-weight: 700;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
   }
   .top-left .dim { color: #6B7E94; font-weight: 500; margin-top: 4px; letter-spacing: 1px; font-size: 14px; }
 
@@ -112,7 +135,6 @@
   }
   .top-right .dim { color: #B0B0B0; font-weight: 500; font-size: 14px; letter-spacing: 1px; margin-top: 4px; }
 
-  /* bottom badges (단순) */
   .bottom-left {
     position: absolute;
     bottom: 50px; left: 70px;
@@ -133,16 +155,6 @@
     letter-spacing: 1px;
   }
   .bottom-right b { color: #56B4E9; font-weight: 700; }
-
-  /* prompt cursor */
-  .cursor {
-    display: inline-block;
-    width: 14px; height: 24px;
-    background: #FFB000;
-    vertical-align: middle;
-    margin-left: 8px;
-    box-shadow: 0 0 10px rgba(255,176,0,0.6);
-  }
 </style>
 </head>
 <body>
@@ -150,23 +162,28 @@
   <div class="glow2"></div>
 
   <div class="top-left">
-    ▸  ANTHROPIC  CLAUDE-CODE
-    <div class="dim">npm @anthropic-ai/claude-code · node 20 LTS</div>
+    ▸  TWO  AI  CODERS  IN  ONE  USB
+    <div class="dim">Anthropic Claude Code · OpenAI Codex · npm Node 20 LTS</div>
   </div>
 
   <div class="top-right">
     LINUX  MINT  21.3  XFCE
-    <div class="dim">Ubuntu 22.04 LTS · kernel 5.15 · lightdm</div>
+    <div class="dim">Ubuntu 22.04 LTS · ko_KR.UTF-8 · Asia/Seoul · Ventoy persistence</div>
   </div>
 
   <div class="center">
-    <div class="title">CCO</div>
-    <div class="subtitle">CLAUDE  CODE  OS</div>
+    <div class="title">AICODE-OS</div>
+    <div class="subtitle">AI  CODE  OPERATING  SYSTEM</div>
+    <div class="badges">
+      <span class="badge b-claude">CLAUDE CODE</span>
+      <span class="plus">+</span>
+      <span class="badge b-codex">OPENAI CODEX</span>
+    </div>
     <div class="slogan">USB <span class="arrow">→</span> BOOT <span class="arrow">→</span> <b>AI in 30 sec</b><span class="cursor"></span></div>
   </div>
 
   <div class="bottom-left">
-    <b>bootable LiveUSB</b>  ·  Ventoy persistence  ·  ko_KR.UTF-8
+    <b>bootable LiveUSB</b>  ·  Ventoy persistence  ·  ibus-hangul  ·  D2Coding
   </div>
 
   <div class="bottom-right">

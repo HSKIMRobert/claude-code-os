@@ -1,13 +1,13 @@
 #!/bin/bash
-# Claude Code OS — Mint LiveUSB ISO builder
+# AICODE-OS — Mint LiveUSB ISO builder (Claude Code + OpenAI Codex)
 # Usage: sudo bash build-mint.sh   (run from a working dir that has linuxmint-*.iso + branding/cco-wallpaper.png)
 set -e
 
 WORK_DIR="${WORK_DIR:-$(pwd)}"
 cd "$WORK_DIR"
 
-VERSION="${VERSION:-2.0.3}"
-ISO_OUT="${ISO_OUT:-cco-mint-v${VERSION}.iso}"
+VERSION="${VERSION:-2.0.4}"
+ISO_OUT="${ISO_OUT:-aicode-os-v${VERSION}.iso}"
 ISO_IN="${ISO_IN:-linuxmint-21.3-xfce-64bit.iso}"
 WALLPAPER_PNG="${WALLPAPER_PNG:-${WORK_DIR}/branding/cco-wallpaper.png}"
 ROOTFS="${ROOTFS:-/tmp/mint-rootfs}"
@@ -75,8 +75,8 @@ dpkg-reconfigure -f noninteractive tzdata 2>/dev/null || true
 curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt install -y nodejs
 
-# claude-code
-npm install -g @anthropic-ai/claude-code
+# claude-code + OpenAI Codex CLI (둘 다 npm)
+npm install -g @anthropic-ai/claude-code @openai/codex
 
 # D2Coding 폰트 (Naver GitHub release — Ubuntu repo 미포함)
 mkdir -p /usr/share/fonts/truetype/d2coding
@@ -103,38 +103,71 @@ groupadd -f nopasswdlogin
 groupadd -f autologin
 usermod -aG nopasswdlogin,autologin cco
 
-# cco-startup script
-cat > /usr/local/bin/cco-startup <<'EOSTART'
+# aicode-startup-claude — Anthropic Claude Code
+cat > /usr/local/bin/aicode-startup-claude <<'EOSTART'
 #!/bin/bash
 export BROWSER=firefox
 clear
-# Big yellow banner — Linux Mint XFCE base
 printf '\033[1;38;5;220m'
 cat <<'BANNER'
 
-   ██████╗  ██████╗  ██████╗
-  ██╔════╝ ██╔════╝ ██╔═══██╗
-  ██║      ██║      ██║   ██║      Claude Code OS
-  ██║      ██║      ██║   ██║      v2.0.3  ·  Mint 21.3 XFCE
-  ╚██████╗ ╚██████╗ ╚██████╔╝      user: cco  (sudo NOPASSWD)
-   ╚═════╝  ╚═════╝  ╚═════╝       net : NetworkManager (Wi-Fi GUI)
+      █████╗ ██╗ ██████╗ ██████╗ ██████╗ ███████╗      ██████╗ ███████╗
+     ██╔══██╗██║██╔════╝██╔═══██╗██╔══██╗██╔════╝     ██╔═══██╗██╔════╝
+     ███████║██║██║     ██║   ██║██║  ██║█████╗       ██║   ██║███████╗
+     ██╔══██║██║██║     ██║   ██║██║  ██║██╔══╝       ██║   ██║╚════██║
+     ██║  ██║██║╚██████╗╚██████╔╝██████╔╝███████╗     ╚██████╔╝███████║
+     ╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝      ╚═════╝ ╚══════╝
+
+           AICODE-OS  v2.0.4  ·  Anthropic Claude Code 창
 
 BANNER
 printf '\033[0m'
-printf '\033[38;5;245m  bootable LiveUSB · Ventoy persistence · ibus-hangul\033[0m\n\n'
+printf '\033[38;5;245m  Mint 21.3 XFCE · cco user (sudo NOPASSWD) · 한글: Shift+Space\033[0m\n\n'
 exec claude --dangerously-skip-permissions
 EOSTART
-chmod 755 /usr/local/bin/cco-startup
+chmod 755 /usr/local/bin/aicode-startup-claude
 
-# .xprofile — autostart on login
+# aicode-startup-codex — OpenAI Codex CLI
+cat > /usr/local/bin/aicode-startup-codex <<'EOCODEX'
+#!/bin/bash
+clear
+printf '\033[1;38;5;81m'
+cat <<'BANNER'
+
+      █████╗ ██╗ ██████╗ ██████╗ ██████╗ ███████╗      ██████╗ ███████╗
+     ██╔══██╗██║██╔════╝██╔═══██╗██╔══██╗██╔════╝     ██╔═══██╗██╔════╝
+     ███████║██║██║     ██║   ██║██║  ██║█████╗       ██║   ██║███████╗
+     ██╔══██║██║██║     ██║   ██║██║  ██║██╔══╝       ██║   ██║╚════██║
+     ██║  ██║██║╚██████╗╚██████╔╝██████╔╝███████╗     ╚██████╔╝███████║
+     ╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝      ╚═════╝ ╚══════╝
+
+           AICODE-OS  v2.0.4  ·  OpenAI Codex CLI 창
+
+BANNER
+printf '\033[0m'
+printf '\033[38;5;245m  npm @openai/codex · OPENAI_API_KEY 또는 ChatGPT 로그인 필요\033[0m\n\n'
+exec codex
+EOCODEX
+chmod 755 /usr/local/bin/aicode-startup-codex
+
+# autostart — Claude + Codex 두 창 동시 시작
 mkdir -p /home/cco/.config/autostart
-cat > /home/cco/.config/autostart/cco-startup.desktop <<'EODESK'
+cat > /home/cco/.config/autostart/aicode-claude.desktop <<'EODESK1'
 [Desktop Entry]
 Type=Application
-Name=CCO Startup
-Exec=xfce4-terminal --title='Claude Code OS' --hold -e /usr/local/bin/cco-startup
+Name=AICODE-OS Claude
+Exec=xfce4-terminal --geometry=120x36+50+80 --title=AICODE-OS\ —\ Claude\ Code --hold -e /usr/local/bin/aicode-startup-claude
 X-GNOME-Autostart-enabled=true
-EODESK
+EODESK1
+
+cat > /home/cco/.config/autostart/aicode-codex.desktop <<'EODESK2'
+[Desktop Entry]
+Type=Application
+Name=AICODE-OS Codex
+Exec=xfce4-terminal --geometry=100x30+1000+450 --title=AICODE-OS\ —\ OpenAI\ Codex --hold -e /usr/local/bin/aicode-startup-codex
+X-GNOME-Autostart-Delay=2
+X-GNOME-Autostart-enabled=true
+EODESK2
 
 # Korean input — ibus + 한글 locale
 cat > /home/cco/.profile <<'EOPROF'
@@ -254,21 +287,35 @@ theme-name=Mint-Y-Dark-Aqua
 icon-theme-name=Mint-Y
 EOGTK
 
-# Desktop CCO icon — 좌측 상단
+# Desktop 아이콘 두 개 (Claude / Codex)
 mkdir -p /home/cco/Desktop
-cat > /home/cco/Desktop/CCO.desktop <<'EODKTOP'
+cat > /home/cco/Desktop/AICODE-Claude.desktop <<'EOAICLA'
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=Claude Code OS
-Comment=Launch claude in xfce4-terminal
-Exec=xfce4-terminal --title='Claude Code OS' --hold -e /usr/local/bin/cco-startup
+Name=AICODE-OS — Claude Code
+Comment=Launch Anthropic Claude Code
+Exec=xfce4-terminal --geometry=120x36 --title=AICODE-OS\ —\ Claude\ Code --hold -e /usr/local/bin/aicode-startup-claude
 Icon=utilities-terminal
 Terminal=false
 Categories=Development;
 StartupNotify=true
-EODKTOP
-chmod +x /home/cco/Desktop/CCO.desktop
+EOAICLA
+chmod +x /home/cco/Desktop/AICODE-Claude.desktop
+
+cat > /home/cco/Desktop/AICODE-Codex.desktop <<'EOAICOD'
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=AICODE-OS — OpenAI Codex
+Comment=Launch OpenAI Codex CLI
+Exec=xfce4-terminal --geometry=100x30 --title=AICODE-OS\ —\ OpenAI\ Codex --hold -e /usr/local/bin/aicode-startup-codex
+Icon=utilities-terminal
+Terminal=false
+Categories=Development;
+StartupNotify=true
+EOAICOD
+chmod +x /home/cco/Desktop/AICODE-Codex.desktop
 
 # xfce4-terminal 기본 색상/폰트 (검정 배경 + JetBrains Mono / D2Coding 14pt)
 mkdir -p /home/cco/.config/xfce4/terminal

@@ -19,7 +19,6 @@
     position: relative;
   }
 
-  /* faint grid lines for tech feel — sky blue, low alpha */
   body::before {
     content: '';
     position: absolute; inset: 0;
@@ -30,7 +29,6 @@
     pointer-events: none;
   }
 
-  /* vignette */
   body::after {
     content: '';
     position: absolute; inset: 0;
@@ -47,13 +45,13 @@
     z-index: 2;
   }
 
-  /* Big yellow CCO — pixel font, IBM yellow, deep shadow for depth + contrast */
   .title {
     font-family: 'Press Start 2P', monospace;
     color: #FFB000;
-    font-size: 110px;
-    letter-spacing: 14px;
+    font-size: 88px;
+    letter-spacing: 8px;
     line-height: 1.0;
+    white-space: nowrap;
     text-shadow:
       0 6px 0 #C28800,
       0 12px 0 #8A5F00,
@@ -61,16 +59,35 @@
   }
 
   .subtitle {
-    margin-top: 50px;
-    font-size: 40px;
-    color: #FFB000;
+    margin-top: 46px;
+    font-size: 36px;
+    color: #FFFFFF;
     letter-spacing: 6px;
     font-weight: 700;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
 
+  .badges {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    align-items: center;
+  }
+  .badge {
+    padding: 10px 20px;
+    border: 2px solid;
+    border-radius: 999px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  .b-claude { color: #FFB000; border-color: #FFB000; background: rgba(255,176,0,0.08); }
+  .b-codex  { color: #56B4E9; border-color: #56B4E9; background: rgba(86,180,233,0.08); }
+  .plus { color: #FFFFFF; font-size: 24px; font-weight: 800; }
+
   .meta {
-    margin-top: 22px;
+    margin-top: 38px;
     font-size: 22px;
     color: #FFFFFF;
     letter-spacing: 1px;
@@ -87,7 +104,6 @@
   }
   .meta2 b { color: #FFB000; font-weight: 700; }
 
-  /* corner badges */
   .badge-top-left {
     position: absolute;
     top: 60px; left: 70px;
@@ -140,48 +156,48 @@
 </head>
 <body>
 
-  <!-- top-left: tools (sky blue header) -->
   <div class="badge-top-left">
-    <div class="h">▸  AVAILABLE  TOOLS</div>
-    <div class="row">claude  --dangerously-skip-permissions</div>
+    <div class="h">▸  AVAILABLE  AI  CODERS</div>
+    <div class="row">claude  --dangerously-skip-permissions  (Anthropic)</div>
+    <div class="row">codex  (OpenAI Codex CLI)</div>
     <div class="row">firefox  ·  xfce4-terminal  ·  thunar</div>
     <div class="row">node v20 LTS  ·  npm  ·  bash</div>
-    <div class="row">NetworkManager  ·  nm-applet  (Wi-Fi GUI)</div>
-    <div class="row">ibus-hangul   (Shift+Space  한/영)</div>
+    <div class="row">NetworkManager  ·  nm-applet  ·  ibus-hangul</div>
   </div>
 
-  <!-- top-right: spec (vermillion header) -->
   <div class="badge-top-right">
     <div class="h">▸  SYSTEM</div>
-    <div>Linux Mint 21.3   XFCE</div>
-    <div>Ubuntu 22.04 LTS   (jammy)</div>
+    <div>Linux Mint 21.3  XFCE</div>
+    <div>Ubuntu 22.04 LTS  (jammy)</div>
     <div>kernel 5.15  ·  xorg  ·  lightdm</div>
     <div>D2Coding  ·  Noto CJK KR</div>
     <div>persistence:  casper-rw  3.5GB</div>
   </div>
 
-  <!-- center -->
   <div class="center">
-    <div class="title">CCO</div>
-    <div class="subtitle">CLAUDE  CODE  OS</div>
+    <div class="title">AICODE-OS</div>
+    <div class="subtitle">AI  CODE  OPERATING  SYSTEM</div>
+    <div class="badges">
+      <span class="badge b-claude">CLAUDE CODE</span>
+      <span class="plus">+</span>
+      <span class="badge b-codex">OPENAI CODEX</span>
+    </div>
     <div class="meta">
-      <b>v2.0.3</b>  ·  bootable LiveUSB  ·  Ventoy persistence
+      <b>v2.0.4</b>  ·  bootable LiveUSB  ·  Ventoy persistence
     </div>
     <div class="meta2">
-      <b>user</b> cco   ·   <b>sudo</b> NOPASSWD   ·   <b>autologin</b> on
+      <b>user</b> cco   ·   <b>sudo</b> NOPASSWD   ·   <b>autologin</b> on   ·   <b>한글</b> Shift+Space
     </div>
   </div>
 
-  <!-- bottom-left: target hardware (vermillion header) -->
   <div class="badge-bottom-left">
     <div class="h">▸  TARGET  HARDWARE</div>
     <div>ASUS X515  ·  Samsung NT900X3A  ·  any x86_64 PC</div>
     <div>boot via Ventoy USB  ·  <b>F12 / ESC</b>  for boot menu</div>
   </div>
 
-  <!-- bottom-right: brand -->
   <div class="badge-bottom-right">
-    <b>anthropic</b>   claude-code<br>
+    <b>anthropic</b>   claude-code  +  <b>openai</b>   codex<br>
     github.com/Hostingglobal-Tech/claude-code-os<br>
     <span class="accent">2026.05.08</span>
   </div>
